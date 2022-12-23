@@ -1,5 +1,6 @@
 var result;
 var session_id;
+var allow = 1;
 
 function createbox(id) {
 	session_id = id;
@@ -43,6 +44,15 @@ function normalbox() {
 		'rgb(103, 78, 245)';
 }
 
+function disable_click() {
+	var i = 0;
+	const list = document.getElementById('color');
+	while (list.hasChildNodes()) {
+		list.childNodes[i].setAttribute('onclick', '');
+		i++;
+	}
+}
+
 function destroy() {
 	const list = document.getElementById('color');
 	while (list.hasChildNodes()) {
@@ -53,22 +63,26 @@ function destroy() {
 async function check(id) {
 	var box_id = document.getElementById(id);
 	var check = box_id.style.backgroundColor;
-	if (check == result) {
+	if (check == result && allow == 1) {
 		box_id.style.border = '5px solid lime';
 		var user_result = document.getElementById('user_result');
 		user_result.style.color = 'lime';
 		document.getElementById('user_result').innerHTML = 'YOU ARE CORRECT';
+		allow = 0;
 		await delay(2000);
 		document.getElementById('user_result').innerHTML = '';
 		createbox(session_id);
-	} else {
+		allow = 1;
+	} else if (check != result && allow == 1) {
 		box_id.style.border = '5px solid red';
 		var user_result = document.getElementById('user_result');
 		user_result.style.color = 'rgb(224, 0, 0)';
 		document.getElementById('user_result').innerHTML = 'YOU ARE WRONG';
+		allow = 0;
 		await delay(2000);
 		document.getElementById('user_result').innerHTML = '';
 		createbox(session_id);
+		allow = 1;
 	}
 }
 
