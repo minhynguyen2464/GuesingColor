@@ -1,6 +1,8 @@
 var result;
+var session_id;
 
 function createbox(id) {
+	session_id = id;
 	const color = document.getElementById('color');
 	color.innerHTML = '';
 	if (id == 'easy') {
@@ -58,7 +60,7 @@ async function check(id) {
 		document.getElementById('user_result').innerHTML = 'YOU ARE CORRECT';
 		await delay(2000);
 		document.getElementById('user_result').innerHTML = '';
-		destroy();
+		createbox(session_id);
 	} else {
 		box_id.style.border = '5px solid red';
 		var user_result = document.getElementById('user_result');
@@ -66,7 +68,7 @@ async function check(id) {
 		document.getElementById('user_result').innerHTML = 'YOU ARE WRONG';
 		await delay(2000);
 		document.getElementById('user_result').innerHTML = '';
-		destroy();
+		createbox(session_id);
 	}
 }
 
