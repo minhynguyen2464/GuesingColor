@@ -71,6 +71,13 @@ body {
 	position: relative;
 }
 
+.result {
+	clear: both;
+	width: 100%;
+	text-align: center;
+	margin-top: 10px;
+}
+
 .navbar ul {
 	list-style: none;
 }
